@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!--
+  ~ OnPointBox a schedule manager for group classes
+  ~ Copyright (C) 2015  Tiago Miguel Basilio da Silva
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>Trainees</title>
+		<meta name="description" content="">
+		<meta name="author" content="Tiago Miguel Basilio Silva">
+
+		<!-- CDN sources -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+		<!-- local sources -->
+   		<link href="/css/sticky-footer-navbar.css" rel="stylesheet">
+   		<link href="/css/normalize.css" rel="stylesheet">
+   		<link href="/css/jquery.autocomplete.css" rel="stylesheet">
+
+   		<link href="/css/greenTheme.css" rel="stylesheet">
+   		
+	</head>
+
+	<body>
+	
+		<nav class="navbar navbar-default navbar-fixed-top">
+	    	<div class="container">
+	        	<div class="navbar-header">
+	        		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			       <span class="sr-only">Toggle navigation</span>
+			       <span class="icon-bar"></span>
+			       <span class="icon-bar"></span>
+			       <span class="icon-bar"></span>
+			       	</button>
+	          		<a class="navbar-brand" href="/AdminPanel/">onPointBox Admin Panel</a>
+	        	</div>
+	        	<div class="navbar-collapse collapse" id="navbar">
+		          <ul class="nav navbar-nav">
+		            <li><a href="/AdminPanel/classes">Classes</a></li>
+		            <li><a href="/AdminPanel/instructors">Instructors</a></li>
+		            <li><a href="/AdminPanel/trainees">Trainees</a></li>
+		            
+		          </ul>
+			      	<ul class="nav navbar-nav navbar-right">
+			      		<li  class="active"><a href="#">Settings</a></li>
+			            <li><a href="/AdminPanel/logout">Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
+			      	</ul>
+		        </div>
+	    	</div>
+
+	    </nav>
+			<div class="container">
+				<div class="row">
+		        	<div class="col-sm-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">Scheduling Time</h3>
+							</div>
+							<div class="panel-body">
+								<form class="form-inline" id="fta">
+									<div class="form-group">
+										<div class="input-group">
+								    		<label class="sr-only" for="fta-d">Days</label>
+								    		<input type="number" class="form-control" name="tad" id="fta-d" placeholder="Days" maxlength="2" max="90" min="1" required="required">
+								      		<div class="input-group-addon">D</div>
+								    	</div>
+								  	</div>
+									<div class="form-group">
+								  		<button type="submit" class="btn btn-default">Submit</button>
+									</div>
+								</form>
+								<span class="help-block">Maximum time from the current date, for which all new / existing and active classes will be scheduled.</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">Time Limit for Enrolments</h3>
+							</div>
+							<div class="panel-body">
+								<form class="form-inline" id="fli">
+									<div class="form-group">
+								    	<div class="input-group">
+								    		<label class="sr-only" for="fli-d">Days</label>
+								    		<input type="number" class="form-control" name="lid" id="fli-d" placeholder="Days" maxlength="2" max="90" min="0" required="required">
+								      		<div class="input-group-addon">D</div>
+								      		<label class="sr-only" for="fli-h">Hours</label>
+								    		<input type="number" class="form-control" name="lih" id="fli-h" placeholder="Hours" maxlength="2" max="24" min="0" required="required">
+								      		<div class="input-group-addon">h</div>
+								      		<label class="sr-only" for="fli-m">Minutes</label>
+								      		<input type="number" class="form-control" name="lim" id="fli-m" placeholder="Minutes" maxlength="2" max="60" min="0" required="required">
+								      		<div class="input-group-addon">min</div>
+								    	</div>
+								  	</div>
+								  	<button type="submit" class="btn btn-default">Submit</button>
+								</form>
+								<span class="help-block">Maximum time before the start of each class, to which students can enroll.</span>
+							</div>
+						</div>
+					</div>
+	            </div>
+	            <div class="row">
+	            	<div class="col-sm-12">
+	            		<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">Change Password</h3>
+							</div>
+							<div class="panel-body">
+								<form class="form-inline" id="fp">
+									<div class="form-group">
+								    	<label class="sr-only" for="fiold">Old Password</label>
+										<input type="password" name="uoldp" class="form-control" id="fiold" placeholder="Old Password" required="required"/>
+								  	</div>
+								 	<div class="form-group">
+								    	<label class="sr-only" for="finew">New Password</label>
+						            	<input type="password" name="unewp" class="form-control" id="finew" placeholder="New Password" required="required"/>
+								 	</div>
+								  	<button type="submit" class="btn btn-default">Submit</button>
+								</form>
+							</div>
+						</div>
+	            	</div>
+	            </div>
+			</div>
+
+			<footer class="footer">
+				<div class="container">
+		        	<p class="text-muted">&copy; Copyright  by Tiago Miguel Basilio Silva</p>
+		    	</div>
+			</footer>
+		
+		<!-- CDN sources -->
+		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		
+		<!-- local sources -->
+	    <script src="/js/jquery.autocomplete.js"></script>
+	    <script src="/AdminPanel/settings/def.js"></script>
+		
+	</body>
+</html>

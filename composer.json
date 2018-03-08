@@ -1,0 +1,13 @@
+{
+    "name": "tmbs88/onpointbox-web",
+    "type": "project",
+    "authors": [
+        {
+            "name": "tiagomiguelbasiliosilva",
+            "email": "tmbs88@gmail.com"
+        }
+    ],
+    "require": {
+        "swiftmailer/swiftmailer": "5.4.2"
+    }
+}

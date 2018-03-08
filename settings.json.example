@@ -1,0 +1,19 @@
+{
+  "database": {
+    "DB_USERNAME": "",
+    "DB_PASSWORD": "",
+    "DB_HOST": "",
+    "DB_NAME": ""
+  },
+  "email": {
+    "server": "",
+    "port": ,
+    "enc": "ssl",
+    "username": "",
+    "password": ""
+  },
+  "imagesFolder": "uimages\/",
+  "name": "onPointGym",
+  "timeschedule": 8,
+  "regInterval": 10800
+}

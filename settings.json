@@ -1,0 +1,19 @@
+{
+  "database": {
+    "DB_USERNAME": "root",
+    "DB_PASSWORD": "root",
+    "DB_HOST": "localhost",
+    "DB_NAME": "onpointbox"
+  },
+  "email": {
+    "server": "baco.serverlion.org",
+    "port": 465,
+    "enc": "ssl",
+    "username": "p4@ts7361.lusoaloja.com",
+    "password": "p4admin\""
+  },
+  "imagesFolder": "onPointBox\/uimages\/",
+  "name": "onPointGym",
+  "timeschedule": 8,
+  "regInterval": 10800
+}

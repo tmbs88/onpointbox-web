@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<!--
+  ~ OnPointBox a schedule manager for group classes
+  ~ Copyright (C) 2015  Tiago Miguel Basilio da Silva
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>Classes</title>
+		<meta name="description" content="">
+		<meta name="author" content="Tiago Miguel Basilio Silva">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+   		<!-- CDN sources -->
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.0/bootstrap-table.min.css">
+		<!-- local sources -->
+   		<link href="/css/sticky-footer-navbar.css" rel="stylesheet">
+   		<link href="/css/normalize.css" rel="stylesheet">
+   		<link href="/css/jquery.autocomplete.css" rel="stylesheet">
+   		
+   		<link href="/css/greenTheme.css" rel="stylesheet">
+	</head>
+
+	<body>
+	
+		<nav class="navbar navbar-default navbar-fixed-top">
+	    	<div class="container">
+	        	<div class="navbar-header">
+	        		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			       <span class="sr-only">Toggle navigation</span>
+			       <span class="icon-bar"></span>
+			       <span class="icon-bar"></span>
+			       <span class="icon-bar"></span>
+			       	</button>
+	          		<a class="navbar-brand" href="/Trainees/">onPointBox Trainees</a>
+	        	</div>
+	        	<div class="navbar-collapse collapse" id="navbar">
+		          <ul class="nav navbar-nav">
+		            <li class="active"><a href="#">Enroll to Classes</a></li>
+		            
+		          </ul>
+			      	<ul class="nav navbar-nav navbar-right">
+			      		<li class="dropdown">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings <span class="caret"></span></a>
+			          <ul class="dropdown-menu" role="menu">
+			            <li><a href="/Trainees/settings">Personal Data</a></li>
+			            <li class="divider"></li>
+			            <li><a href="#" data-toggle="modal" data-target="#cpass">Change Password</a></li>
+			          </ul>
+			      	</li>
+			      		<li><a href="/Trainees/logout">Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
+			      	</ul>
+		        </div>
+	    	</div>
+
+	    </nav>
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="panel panel-default">
+							<div class="panel-heading clearfix">
+							    <h3 class="panel-title">List of Classes</h3>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-sm-12">
+										<table id="bootstrap-table">
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<footer class="footer">
+				<div class="container">
+		        	<p class="text-muted">&copy; Copyright  by Tiago Miguel Basilio Silva</p>
+		    	</div>
+			</footer>
+		
+		 <!-- modals-->
+		 
+		 <div class="modal fade" id="cpass" tabindex="-1" role="dialog">
+			  	<div class="modal-dialog">
+			    	<div class="modal-content">
+				      	<div class="modal-header">
+				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span>&times;</span></button>
+				        	<h4 class="modal-title">Change Password</h4>
+				      	</div>
+				      	<form id="fp">
+					      	<div class="modal-body">
+					          	<div class="form-group">
+						            <label for="fiold" class="control-label"> Old Password: </label>
+									<input type="password" name="uoldp" class="form-control" id="fiold" required="required" autofocus=""/>
+								</div>
+								<div class="form-group">
+						            <label for="finew" class="control-label"> New Password: </label>
+						            <input type="password" name="unewp" class="form-control" id="finew" required="required"/>
+								</div>
+					      	</div>
+					      	<div class="modal-footer">
+					        	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					        	<button type="submit" class="btn btn-primary">Submit</button>
+					     	</div>
+				     	</form>
+			    	</div>
+			  	</div>
+			</div>
+			
+			
+		
+		<!-- CDN sources -->
+		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.0/bootstrap-table.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.0/locale/bootstrap-table-pt-PT.min.js"></script> <!-- TODO: ADD other languages -->
+		<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.0/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+		
+		<script src="/js/strformat.js"></script>
+
+	    <script type="text/javascript">
+	    	function ajaxReg(cid) {
+				return $.ajax({
+					url: "/php/trainees/classes_insc.php",
+					type : "POST",
+					data : { "cid" : cid },
+					datatype: "json" 
+				}).done(function(data) {
+					var parsed = JSON.parse(data);
+
+					location.assign("/Trainees/list/");
+				}).fail(function() {
+					//location.assign("home.html");
+				});
+			}
+			
+		    function actionFormatter(value, row, index) {
+		    	
+		    	var btn;
+		    	bt1= "<button type='button' class='btn btn-success btn-sm'>Enrol</button>";
+				bt2= "<button type='button' class='btn btn-danger btn-sm'>Remove Enrollment</button>";
+		    	
+		    	if(row.max == null) {
+		    		
+		    		if(row.regid!=null) btn = bt2;
+					else btn = bt1;
+					
+		    	}else {
+		    		v = parseInt(row.max) - parseInt(row.insc);
+							
+					if(v==0) {
+						if(row.regid!=null) btn = bt2;
+						
+					}else {
+						if(row.regid!=null) btn = bt2;
+						else btn = bt1;
+					}
+		    	}
+		    	
+							
+			    return [
+			        btn
+			    ].join('');
+			}
+			
+	    	window.actionEvents = {
+			    'click .btn': function (e, value, row, index) {
+			    	ajaxReg(row.ida);
+			        //alert('You click success icon, row: ' + JSON.stringify(row));
+			    }
+			};
+			
+			$(document).ready(function(){
+				
+				$.ajax({
+					url: "/php/trainees/classes_list.php",
+					type : "post",
+					datatype: "json" 
+				}).done(function(data) {
+					var parsed = JSON.parse(data);
+
+					for(o in parsed.db.rows){						
+						parsed.db.rows[o].duration = timestringformater(parsed.db.rows[o].duration);
+						parsed.db.rows[o].start = timestringformater(parsed.db.rows[o].start);
+						parsed.db.rows[o].end = timestringformater(parsed.db.rows[o].end);
+					}
+					
+					$('#bootstrap-table').bootstrapTable({
+						classes: 'table table-no-bordered',
+					    striped: true,
+					    columns: [{
+							        field: 'id',
+							        visible: false,
+							        searchable: false
+							    }, {
+							        field: 'title',
+							        title: 'Name',
+							        sortable: true,
+							        switchable: false
+							    }, {
+							        field: 'start',
+							        title: 'Data',
+							        sortable: true,
+					    			switchable: false
+							    }, {
+							        field: 'duration',
+							        title: 'Duration',
+							        searchable: false,
+							    }, {
+							        field: 'description',
+							        title: 'Description',
+							        searchable: false,
+							        visible: false,
+							    }, {
+							        field: 'instructor',
+							        title: 'Instructor',
+							        sortable: true,
+							    }, {
+							        field: 'max',
+							        title: 'Capacity',
+							        searchable: false,
+							    }, {
+							        field: 'insc',
+							        title: 'Enrolled',
+							        searchable: false,
+							    }, {
+							    	field: 'action',
+							    	formatter: 'actionFormatter',
+							    	events: 'actionEvents'
+							    }],
+					    data: parsed.db.rows,
+					    search: true,
+					    showToggle: true,
+					    idField: 'id',
+					    uniqueId: 'id',
+					    showColumns: true,
+					    //clickToSelect: true,
+					    mobileResponsive: true
+					    //cardView: true
+					    
+					});
+					
+					/*
+					$('#bootstrap-table').on('click-row.bs.table', function (e, row, $element) {
+				   	});
+					*/
+					$(window).resize(function () {
+				        $('#bootstrap-table').bootstrapTable('resetView');
+				    });
+				}).fail(function() {
+					//location.assign("home.html");
+				});
+				
+				$('#fp').on('submit', function(ev){
+					var oData = new FormData(this);
+
+					oData.append("uoldp", $("#fiold").val());
+					oData.append("unewp", $("#finew").val());
+					
+					var oReq = new XMLHttpRequest();
+					oReq.open("POST", "/php/trainees/user_changep.php", true);/////
+					oReq.onload = function(oEvent) {
+						if (oReq.status == 200) {
+							var response = JSON.parse(oReq.responseText);
+
+			  				//clears modal, closes modal, resets to new data
+			  				if(!response.error){
+			  					
+								$('#cpass').modal('hide');
+									
+							}else{
+								//handles error!!
+								div = $("<div>").attr("class","alert alert-danger").attr("role","alert");
+								cbutton = $("<button>").attr("type","button").attr("class", "close").attr("data-dismiss", "alert").attr("aria-label", "Close");
+								span = $("<span>").attr("aria-hidden", "true").append("&times;");
+								strong = $("<strong>").append("Error: ");
+								cbutton.append(span);
+								div.append(cbutton);
+								div.append(strong);
+								div.append(response.error_message);
+								
+								fgdiv = $("<div>").attr("class","form-group").attr("id","fgwarning");
+								fgdiv.append(div);
+								$('#fp .modal-body').append(fgdiv);
+								
+							}
+							
+			  			} else {
+							console.log( "Error " + oReq.status + " occurred uploading your file.");
+						}
+					};
+					
+					oReq.send(oData);
+					ev.preventDefault();
+				});
+				
+				
+				$('#cpass').on('hidden.bs.modal', function () {
+					
+				    $("input", this).each(function(){
+						$(this).val('');
+					});
+					
+				});
+				
+			});
+
+		</script>
+		
+	</body>
+</html>

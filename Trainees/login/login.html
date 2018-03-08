@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!--
+  ~ OnPointBox a schedule manager for group classes
+  ~ Copyright (C) 2015  Tiago Miguel Basilio da Silva
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>Login</title>
+		<meta name="description" content="">
+		<meta name="author" content="Tiago Miguel Basilio Silva">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    	<!-- CDN sources -->
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+		<!-- local sources -->
+   		<link href="/css/signin.css" rel="stylesheet">
+		<link href="/css/sticky-footer-navbar.css" rel="stylesheet">
+
+   		<link href="/css/greenTheme.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<div>
+			<nav class="navbar navbar-default navbar-fixed-top">
+	      <div class="container">
+	        <div class="navbar-header">
+	          <a class="navbar-brand" href="/Trainees/">onPointBox Trainees</a>
+	        </div>
+	      </div>
+	    </nav>
+			
+			<div class="container">
+
+		      <form class="form-signin" id="f1" action="" method="post">
+		      	<img src="/logo.png" style='width: 300px;max-height: 100%'>
+		        <h2 class="form-signin-heading">Login Trainees</h2>
+
+			        <label for="inputUsername" class="sr-only">Username</label>
+			        <input type="email" id="inputUsername" name="uemail" class="form-control" placeholder="Username" required="required" autofocus="">
+			        <label for="inputPassword" class="sr-only">Password</label>
+			        <input type="password" id="inputPassword" name="upass" class="form-control" placeholder="Password" required="required">
+
+		       	
+		       	<div class="form-group">
+		        	<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+				</div>
+		      </form>
+		      <div id="alerts">
+				
+			  </div>
+			</div>
+			
+			
+			
+			<footer class="footer">
+		      <div class="container">
+		        <p class="text-muted">&copy; Copyright  by Tiago Miguel Basilio Silva</p>
+		      </div>
+		    </footer>
+		</div>
+		
+		<!-- CDN sources -->
+		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			function alerts(pre, text, type){
+				div = $("<div>").attr("class","alert "+type).attr("role","alert");
+		    				
+				cbutton = $("<button>").attr("type","button").attr("class", "close").attr("data-dismiss", "alert").attr("aria-label", "Close");
+				span = $("<span>").attr("aria-hidden", "true").append("&times;");
+				
+				strong = $("<strong>").append(pre+" ");
+			
+				cbutton.append(span);
+				
+				div.append(cbutton);
+				div.append(strong);
+				div.append(text);
+				
+				$("#alerts").append(div);
+			}
+		
+			$(document).ready(function(){
+				//check pass
+		    	$("#f1").submit(function (e) {
+		    		e.preventDefault();
+		    		$("#alerts").empty();
+		    			
+	    			var email = $("#inputUsername").val();
+	    			var pass = $("#inputPassword").val();
+		    		
+					$.ajax({
+						url: "/php/trainees/user_login.php",
+						type : "post",
+						data:{
+							"upass":pass,
+							"uemail":email
+						},
+						datatype: "json"
+					}).done(function(data) {
+						
+						var parsed = JSON.parse(data);
+						if(!parsed.error){
+							location.assign("/Trainees/");
+						} else {
+							if(parsed.db.errno <= 3){
+								alerts("Error!",
+			    						parsed.db.error_message,
+			    						"alert-danger");
+							}
+							if(parsed.db.errno == 4){
+								alerts("Error!",
+			    						parsed.db.error_message+" <a href='#' id='recup'><small><u>Retrieve account.</u></small></a>",
+			    						"alert-danger");
+			    						
+			    				$("#recup").click(function() {
+								  	//ajax to change password
+									$.ajax({
+										url: "/php/user_forgot.php",
+										type : "post",
+										data:{
+											"uemail":email
+										},
+										datatype: "json"
+									}).done(function(dataa) {
+										var parsedd = JSON.parse(dataa);
+										if(!parsedd.error){
+											alerts("Success!",
+													"New password sent to email.",
+													"alert-success");
+										}
+									}).fail(function() {
+									    //connection to server fail
+									    alerts("Error!",
+									    		"Connection failed, please try again.",
+									   			"alert-danger");
+									});
+								});
+							}
+							$("#inputUsername").focus();
+
+						}
+			    		
+					}).fail(function() {
+					    //connection to server fail
+					    alerts("Error!",
+					    		"Connection failed, please try again.",
+					    		"alert-danger");
+					});
+				});
+				
+				
+			});
+		</script>
+	</body>
+</html>
